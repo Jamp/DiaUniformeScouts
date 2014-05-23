@@ -1,0 +1,98 @@
+<?php View::content(); ?>
+<div class="row">
+    <div class="col-md-6">
+        <div class="well">
+            <h4>Subir Foto</h4>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <input type="file" class="filestyle" data-buttonText="Seleccione Foto" data-iconName="fa fa-inbox" data-size="md">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-12 text-right">
+                            <button type="submit" class="btn btn-success"><i class="fa fa-upload"></i> Subir</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <?php echo Tag::js('bootstrap-filestyle.min'); ?>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>#DiaUniformeScouts</h4>
+            </div>
+            <div class="panel-body">
+                <blockquote>
+                    <?php echo Html::img('BadenPowell.gif', 'Baden Powell (1857-1941)', 'class="img-circle pull-right"') ?>
+                    <p>La indumentaria Scout, por su uniforme, constituye un lazo más de hermandad entre los muchachos de todo el mundo.</p>
+                    <footer>
+                        Baden Powell (1857-1941)
+                    </footer>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="panel panel-default">
+        <div class="panel-thumbnail"><img src="//placehold.it/450/EDEDED" class="img-responsive"></div>
+    </div>
+</div>
+
+<div id="gallery">
+
+    <div class="col-md-4">
+        <div class="panel panel-default photo">
+            <div class="panel-thumbnail"><img src="//placehold.it/450/EDEDED" class="img-responsive"></div>
+            <div class="panel-body">
+                <p>120k Followers, 900 Posts</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-thumbnail"><img src="//placehold.it/450/EDEDED" class="img-responsive"></div>
+            <div class="panel-body">
+                <p class="lead">Hacker News</p>
+                <p>120k Followers, 900 Posts</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body text-center">
+                <a href="#"><i class="fa fa-angle-double-down"></i> Cargar más</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        if(navigator.userAgent = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()))){
+            return True
+        } else {
+            $('.photo').find('.panel-body').hide();
+            $('.photo')
+            .mouseover(function(event) {
+                $('.photo').find('.panel-body').show('slow');
+                event.stopPropagation();
+            })
+            .mouseout(function(event) {
+                $('.photo').find('.panel-body').hide('slow');
+                event.stopPropagation();
+            });
+        }
+    });
+</script>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="<?php echo APP_CHARSET ?>">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+        <title><?php echo $title; ?></title>
+
+        <?php Tag::css('bootstrap.min'); // Bootstrap 3.1.0 ?>
+        <?php Tag::css('font-awesome.min'); // Font Awesome 4.0.3 ?>
+        <?php Tag::css('bootstrap-theme'); ?>
+        <?php Tag::css('login'); ?>
+        <?php echo Html::includeCss() ?>
+
+    </head>
+    <body>
+
+        <?php View::partial('top'); ?>
+
+        <!-- Content -->
+        <div class="container">
+            <?php echo Form::open(null, 'post', 'class="form-signin" role="form"'); ?>
+                <h2 class="form-signin-heading">Bienvenido</h2>
+                <?php View::content(); ?>
+                <input type="text" class="form-control" placeholder="Usuario" name="usuario" required autofocus>
+                <input type="password" class="form-control" placeholder="Contraseña" name="clave" id="clave" required>
+                <button class="btn btn-lg btn-primary btn-block" type="submit" name="login"><i class="fa fa-sign-in"></i> Entrar</button>
+            </form>
+        </div>
+        <!-- Content -->
+
+        <?php View::partial('footer'); ?>
+        <?php echo Tag::js('jquery.min'); // jQuery 1.10.2?>
+        <?php echo Tag::js('bootstrap.min'); ?>
+        <?php echo Tag::js('sha1.min'); ?>
+        <script type="text/javascript">
+            $('form').on('submit', function(){
+                var clave = $('#clave');
+                if (clave.val().length != 0){
+                    clave.val( sha1(clave.val()) );
+                }
+            });
+        </script>
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+<?php
+/*mime type para el contenido*/
+header('Content-type: application/json');
+if (empty($data))
+    View::content();
+else
+    echo json_encode($data);
