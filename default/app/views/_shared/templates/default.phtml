@@ -8,17 +8,17 @@
 
         <title><?php echo $title; ?></title>
 
-        <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
-        <?php // Tag::css('bootstrap.min'); // Bootstrap 3.1.0 ?>
-        <?php // Tag::css('font-awesome.min'); // Font Awesome 4.0.3 ?>
+        <!-- <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
+        <!-- <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"> -->
+        <?php Tag::css('bootstrap.min'); // Bootstrap 3.1.0 ?>
+        <?php Tag::css('font-awesome.min'); // Font Awesome 4.0.3 ?>
         <?php Tag::css('theme'); ?>
         <?php echo Html::includeCss() ?>
 
-        <script  type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-        <?php // echo Tag::js('jquery.min'); // jQuery 1.10.2?>
-        <?php // echo Tag::js('bootstrap.min'); ?>
+        <!-- <script  type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+        <!-- <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script> -->
+        <?php echo Tag::js('jquery.min'); // jQuery 1.10.2?>
+        <?php echo Tag::js('bootstrap.min'); ?>
 
         <!--Load the AJAX API-->
         <!-- <script type="text/javascript" src="https://www.google.com/jsapi" async></script> -->
@@ -28,8 +28,8 @@
 
         <?php View::partial('nav'); ?>
 
-        <div class="container" id="main">
-                <?php View::content(); ?>
+
+            <?php View::content(); ?>
         </div>
 
         <?php View::partial('footer'); ?>
