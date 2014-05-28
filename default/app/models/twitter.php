@@ -235,9 +235,9 @@ class Twitter extends tmhOAuth
             'status'  => $text
         );
 
-        $code = $tmhOAuth->user_request(array(
+        $code = $this->user_request(array(
             'method' => 'POST',
-            'url' => $tmhOAuth->url("1.1/statuses/update_with_media"),
+            'url' => $this->url("1.1/statuses/update_with_media"),
             'params' => $params,
             'multipart' => true
         ));
