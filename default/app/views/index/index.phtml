@@ -95,7 +95,11 @@
 
                         </div>
                         <div class="panel-body">
+                            <?php if ($photo->created_at == '08/11/2014 08:11'): ?>
+                            <p>#DiadelUniformeScout</p>
+                            <?php else: ?>
                             <p>Publicado: <?php echo $photo->created_at; ?></p>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
