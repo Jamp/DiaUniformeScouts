@@ -65,7 +65,7 @@ class IndexController extends AppController
 
                     if (Load::model('photos')->InsertPhoto($timg, $id)) {
                         Flash::valid('Imagen subida correctamente...!!! y espera aprobación para ser publicada');
-                        Load::model('email')->enviarNotificacion("Nueva imagen subida", "Nueva imagen subida y espera por tu aprobación");
+                        // Load::model('email')->enviarNotificacion("Nueva imagen subida", "Nueva imagen subida y espera por tu aprobación");
                     }
                 }
             }else{
