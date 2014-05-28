@@ -9,8 +9,9 @@ class IndexController extends AppController
     public function index($actual=NULL)
     {
 
+        $this->hoy = date('Y');
         if (is_null($actual)){
-            $actual = date('Y');
+            $actual = $this->hoy;
         }
 
         $this->actual = $actual;
@@ -21,7 +22,6 @@ class IndexController extends AppController
     }
 
     public function paginar($pagina, $ano=NULL) {
-        sleep(10);
         if (is_null($ano)) {
             $ano = date('%Y');
         }
@@ -32,11 +32,20 @@ class IndexController extends AppController
     public function subir() {
 
         if (Input::hasPost('submit')) {
+            $id = Input::post('album_id');
+            $path = dirname($_SERVER['SCRIPT_FILENAME'])."/img/upload/$id/";
+
+            if (!file_exists($path) && !is_dir($path)) {
+                mkdir($path);
+                chmod($path, 0777);
+            }
+
             $archivo = Upload::factory('file', 'image');
+            $archivo->setPath($path);
             $archivo->setExtensions(array('jpg', 'png', 'gif'));
 
             if ($archivo->isUploaded()) {
-                $path = dirname($_SERVER['SCRIPT_FILENAME']) . '/img/upload/';
+
                 $img = $archivo->saveRandom();
                 if ($img) {
 
@@ -54,7 +63,7 @@ class IndexController extends AppController
 
                     $thumb->destroy();
 
-                    if (Load::model('photos')->InsertPhoto($timg, Input::post('album_id'))) {
+                    if (Load::model('photos')->InsertPhoto($timg, $id)) {
                         Flash::valid('Imagen subida correctamente...!!!');
                     }
                 }
@@ -62,7 +71,8 @@ class IndexController extends AppController
                 Flash::warning('No se ha Podido Subir la imagen...!!!');
             }
         }
-        Router::redirect('/');
+        $back = Utils::getBack();
+        Router::redirect($back);
     }
 }
 

@@ -133,6 +133,13 @@ h3,h4,h5 {
   float: none;
 }
 
+@media (max-width: 760px) {
+  #navbar-collapse2 {
+    display: table;
+    margin: none;
+    float: left;
+  }
+}
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > li:hover > a {
   border: 0 solid #622599;
   border-bottom-width: 2px;
@@ -144,8 +151,13 @@ h3,h4,h5 {
   margin: auto;
 }
 
-.panel-body {
+/*.panel-body {
   border-top: 1px solid #DDD;
+}*/
+
+.badge {
+  color: #622599;
+  background-color: #FFF;
 }
 
 #footer {

@@ -1,5 +1,5 @@
     <div class="navbar navbar-default" id="subnav">
-        <button type="button" class="navbar-toggle" data-toggle="collapse"  data-target="#navbar-collapse2">
+        <button type="button" class="navbar-toggle" data-toggle="collapse"  data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -9,10 +9,14 @@
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav" id="navbar-collapse2">
             <?php foreach ($anos as $album): ?>
-                <?php if ($actual == $album->year): $idx = $album->id; ?>
-            <li class="active"><a href="#"><?php echo $album->year; ?></a></li>
+                <?php if ($actual == $album->year && $hoy == $album->year): $idx = $album->id; ?>
+            <li class="active"><?php echo Html::link('', $album->year); ?></li>
+                <?php elseif ($actual == $album->year && $hoy != $album->year): $idx = $album->id; ?>
+            <li class="active"><?php echo Html::link('album/'.$album->year, $album->year); ?></li>
+                <?php elseif ($actual != $album->year && $hoy == $album->year): ?>
+            <li><?php echo Html::link('', $album->year); ?></li>
                 <?php else: ?>
-            <li><a href="#"><?php echo $album->year; ?></a></li>
+            <li><?php echo Html::link('album/'.$album->year, $album->year); ?></li>
                 <?php endif; endforeach; ?>
            </ul>
         </div>
@@ -20,6 +24,7 @@
     </div>
     <div class="container" id="main">
         <?php View::content(); ?>
+        <?php if ( Router::get('route') == '/' ): ?>
         <div class="row">
             <div class="col-md-6">
                 <div class="well">
@@ -28,13 +33,13 @@
                         <?php echo Form::openMultipart('subir/', 'post', 'class="form-horizontal"'); ?>
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <?php echo Form::hidden('album_id', NULL, $idx),Form::file('file', 'class="filestyle" data-buttonText="Seleccione Foto" data-iconName="fa fa-inbox" data-size="md"'); ?>
+                                    <?php echo Form::hidden('album_id', NULL, $idx),Form::file('file', 'class="filestyle" data-buttonText="Seleccione Foto" data-iconName="fa fa-inbox" data-size="md" data-disabled="true"'); ?>
                                 </div>
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-xs-12 text-right">
-                                    <button type="submit" name="submit" class="btn btn-success"><i class="fa fa-upload"></i> Subir</button>
+                                    <button type="submit" name="submit" class="btn btn-success" disabled="disabled"><i class="fa fa-upload"></i> Subir</button>
                                 </div>
                             </div>
                         </form>
@@ -61,6 +66,24 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-md-12 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>Cuenta regresiva</h4>
+                    </div>
+                    <div class="panel-body">
+                        <h4 class="text-center">Ha solo un día para iniciar</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <?php else: ?>
+        <h4>Año Anterior</h4>
+        <?php endif; ?>
         <div id="gallery">
             <div class="row">
                 <?php $i = 0; foreach ($photos->items as $photo): ?>
@@ -68,7 +91,7 @@
                 <div class="col-md-4">
                     <div class="panel panel-default photo">
                         <div class="panel-thumbnail">
-                            <?php echo Html::img('upload/'.$photo->name, 'Null', ' class="img-responsive"') ?>
+                            <?php echo Html::img("upload/$idx/".$photo->name, 'Null', ' class="img-responsive"') ?>
 
                         </div>
                         <div class="panel-body">
@@ -91,7 +114,7 @@
             <div class="col-md-12" id="load">
                 <div class="panel panel-default">
                     <div class="panel-body text-center">
-                        <?php echo Html::link('paginar/', '<i class="fa fa-angle-double-down"></i> Ver más', 'id="siguiente"'); ?>
+                        <?php echo Html::link("paginar/", '<i class="fa fa-angle-double-down"></i> Ver más', 'id="siguiente"'); ?>
                     </div>
                 </div>
             </div>
@@ -102,7 +125,7 @@
             <div class="col-md-4">
                 <div class="panel panel-default photo">
                     <div class="panel-thumbnail">
-                        <img src="<?php echo PUBLIC_PATH.'img/upload/'; ?>${name}" alt="Null" class="img-responsive">
+                        <img src="<?php echo PUBLIC_PATH.'img/upload/'.$idx.'/'; ?>${name}" alt="Null" class="img-responsive">
                     </div>
                     <div class="panel-body">
                         <p>${created_at}</p>
@@ -130,8 +153,15 @@
                     url,
                     null,
                     function(data){
-                        $('#items').tmpl(data.items).appendTo('#gallery');
+                        row1 = data.items.slice(0, 3);
+                        row2 = data.items.slice(3, 6);
+
+                        $('#items').tmpl(row1).appendTo('#gallery');
+                        $('#gallery').append('</div><div class="row">');
+
+                        $('#items').tmpl(row2).appendTo('#gallery');
                         $('#gallery').append('</div>');
+
                         $('#siguiente').html(text);
                     }
                 ).fail(function(){
@@ -156,4 +186,5 @@
                 });
             }*/
         });
+
     </script>
