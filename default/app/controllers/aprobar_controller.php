@@ -18,7 +18,7 @@ class AprobarController extends AppController
         $photos = Load::model('photos');
         if ($photos->Valid($id)) {
             $texto = "Nueva foto en el sistema en línea para subir tus fotos del #DiadelUniformeScout // http://uniforme.scoutsfalcon.org/";
-            $path = dirname($_SERVER['SCRIPT_FILENAME'])."/img/upload/$id/";
+            $path = dirname($_SERVER['SCRIPT_FILENAME'])."/img/upload/1/";
             $image = $path.$photos->imageName($id);
             $twitter = Load::model('twitter');
             $tweet = $twitter->photo_tweet(
