@@ -64,15 +64,16 @@ class IndexController extends AppController
                     $thumb->destroy();
 
                     if (Load::model('photos')->InsertPhoto($timg, $id)) {
-                        Flash::valid('Imagen subida correctamente...!!!');
+                        Flash::valid('Imagen subida correctamente...!!! y espera aprobación para ser publicada');
+                        Load::model('email')->enviarNotificacion("Nueva imagen subida", "Nueva imagen subida y espera por tu aprobación");
                     }
                 }
             }else{
                 Flash::warning('No se ha Podido Subir la imagen...!!!');
             }
         }
-        $back = Utils::getBack();
-        Router::redirect($back);
+        #$back = Utils::getBack();
+        Router::redirect('/');
     }
 }
 
