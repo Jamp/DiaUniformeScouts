@@ -44,6 +44,10 @@ class photos extends ActiveRecord {
         return $this->find_all_by_sql($sql);
     }
 
+    public function imageName($id){
+        return $this->find_first($id)->name;
+    }
+
     public function Valid($id){
         $rs = $this->find($id);
         $rs->status = 1;

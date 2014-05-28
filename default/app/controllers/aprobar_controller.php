@@ -6,6 +6,8 @@
 */
 class AprobarController extends AppController
 {
+    private $user_token = '';
+    private $secret_token = '';
 
     public function index()
     {
@@ -13,8 +15,19 @@ class AprobarController extends AppController
     }
 
     public function aprobado($id) {
-        if (Load::model('photos')->Valid($id)) {
-            Flash::valid('Aprobado');
+        $photos = Load::model('photos');
+        if ($photos->Valid($id)) {
+            $texto = "Nueva foto en el sistema en línea para subir tus fotos del #DiadelUniformeScout // http://uniforme.scoutsfalcon.org/";
+            $path = dirname($_SERVER['SCRIPT_FILENAME'])."/img/upload/$id/";
+            $image = $photos->imageName($id);
+            $twitter = Load::model('twitter');
+            $tweet = $twitter->photo_tweet(
+                $this->user_token,
+                $this->secret_token,
+                $image,
+                $texto
+            );
+            if ($tweet) Flash::success('Tweet enviado satisfactoriamente!!!');
         }
         Router::redirect('aprobar/');
     }
