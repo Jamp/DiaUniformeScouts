@@ -49,6 +49,12 @@ class photos extends ActiveRecord {
         $rs->status = 1;
         return $rs->save();
     }
+
+    public function Error($id){
+        $rs = $this->find($id);
+        $rs->status = 2;
+        return $rs->save();
+    }
 }
 
 ?>

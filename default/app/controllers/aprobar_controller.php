@@ -20,7 +20,10 @@ class AprobarController extends AppController
     }
 
     public function eliminar($id) {
-
+        if (Load::model('photos')->Error($id)) {
+            Flash::valid('Eliminado');
+        }
+        Router::redirect('aprobar/');
     }
 
 }
